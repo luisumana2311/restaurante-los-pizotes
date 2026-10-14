@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-hueso font-texto text-brasa antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-titulo;
+  }
+}
+
+@layer components {
+  .boton {
+    @apply inline-flex items-center justify-center rounded-full bg-naranja px-6 py-3 font-semibold text-white transition hover:bg-naranja-oscuro focus:outline-none focus-visible:ring-2 focus-visible:ring-naranja focus-visible:ring-offset-2;
+  }
+  .boton-claro {
+    @apply inline-flex items-center justify-center rounded-full border border-brasa/30 px-6 py-3 font-semibold transition hover:bg-brasa hover:text-hueso;
+  }
+  .campo {
+    @apply w-full rounded-lg border border-brasa/25 bg-white px-3 py-2 focus:border-naranja focus:outline-none focus:ring-1 focus:ring-naranja;
+  }
+}

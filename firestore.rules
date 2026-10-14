@@ -1,0 +1,30 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Solo la(s) cuenta(s) del dueño pueden escribir.
+    // REEMPLAZAR por el correo real con el que el dueño cree su cuenta en Firebase Auth.
+    function esAdmin() {
+      return request.auth != null
+        && request.auth.token.email in ['REEMPLAZAR_CORREO_DEL_DUENO@ejemplo.com'];
+    }
+
+    // Lectura pública: el sitio muestra menú, horario y plato del día.
+    match /config/{doc} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+    match /menuCategorias/{id} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+    match /menuItems/{id} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+    match /eventos/{id} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+  }
+}
