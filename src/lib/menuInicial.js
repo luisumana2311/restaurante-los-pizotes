@@ -5,9 +5,18 @@
 
 export const NOTA_EMPAQUE = 'Empaque pequeño ₡300 · Empaque grande ₡400 · Orden adicional ₡800'
 
+/* Secciones del menú en línea: el cliente elige una y ve pocas categorías a la vez. */
+export const GRUPOS = [
+  { id: 'picar', nombre: 'Para picar', sub: 'Entradas, sopas y antojos' },
+  { id: 'fuerte', nombre: 'Platos fuertes', sub: 'Cortes, mariscos y casados' },
+  { id: 'dulce', nombre: 'Dulce y café', sub: 'Postres, café y refrescos' },
+  { id: 'bar', nombre: 'Bar', sub: 'Cervezas, licores y cócteles' },
+]
+
 export const MENU_INICIAL = [
   {
     nombre: 'Cortes',
+    grupo: 'fuerte',
     descripcion: 'Todos los cortes incluyen un acompañamiento. Certified Angus Beef®.',
     platos: [
       ['Ribeye 300gr', 19600],
@@ -22,6 +31,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Entradas',
+    grupo: 'picar',
     platos: [
       ['Almohaditas de queso', 3900],
       ['Calamares empanizados', 4600, 'Con salsa de aioli o coctel'],
@@ -40,6 +50,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Menú ligero',
+    grupo: 'picar',
     platos: [
       ['Wrap de pollo', 4700],
       ['Pizoburguesa', 6900],
@@ -59,6 +70,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Sopas',
+    grupo: 'picar',
     descripcion: 'Consultar al salonero por la sopa del día.',
     platos: [
       ['Sopa azteca con pollo', 5400],
@@ -71,6 +83,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Ensaladas',
+    grupo: 'picar',
     platos: [
       ['Ensalada césar de pollo', 4200],
       ['Ensalada de la casa con pollo', 4700],
@@ -80,6 +93,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Menú de niños',
+    grupo: 'fuerte',
     platos: [
       ['Palomitas de pollo', 3800],
       ['Palomitas de pescado', 3900],
@@ -89,6 +103,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Mariscos',
+    grupo: 'fuerte',
     platos: [
       ['Camarones a la plancha', 6200],
       ['Camarones al ajillo', 6500],
@@ -106,6 +121,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Surtidos',
+    grupo: 'picar',
     platos: [
       ['Chicharrones medianos', 11000],
       ['Chicharrones grande', 14200],
@@ -129,6 +145,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Pasta',
+    grupo: 'fuerte',
     descripcion: 'Salsa blanca preparada con vino.',
     platos: [
       ['Spaghetti con pollo', 6000],
@@ -140,6 +157,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Casados',
+    grupo: 'fuerte',
     platos: [
       ['Casado con bistec', 4400],
       ['Casado con carne en salsa', 4400],
@@ -152,6 +170,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Pollo',
+    grupo: 'fuerte',
     platos: [
       ['Pechuga milanesa', 7200, 'En salsa de tomate y queso suizo'],
       ['Pollo a la plancha o a la parrilla', 5800, 'Con hierbas'],
@@ -163,6 +182,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Cerdo',
+    grupo: 'fuerte',
     platos: [
       ['Plato de chicharrones', 4900],
       ['Lonjas de cerdo en salsa agridulce', 6600],
@@ -171,6 +191,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Carnes',
+    grupo: 'fuerte',
     platos: [
       ['Filet mignon en salsa de hongos', 11000],
       ['Lomito a la parrilla en hierbas', 9800],
@@ -187,6 +208,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Arroces',
+    grupo: 'fuerte',
     platos: [
       ['Arroz con carne', 5700],
       ['Arroz con cerdo', 5200],
@@ -199,6 +221,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Postres',
+    grupo: 'dulce',
     platos: [
       ['Cheesecake', 2900, 'Preguntar al salonero por los sabores'],
       ['Torta de Snickers', 2900],
@@ -209,6 +232,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Refrescos naturales y gaseosas',
+    grupo: 'dulce',
     platos: [
       ['Gaseosas', 1600],
       ['Botella de agua pequeña', 1200],
@@ -222,6 +246,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Bebidas calientes',
+    grupo: 'dulce',
     platos: [
       ['Café negro', 1300],
       ['Café con leche', 1500],
@@ -242,6 +267,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Selección para el café',
+    grupo: 'dulce',
     platos: [
       ['Tortilla de queso', 3000],
       ['Sándwich de jamón y queso', 3600],
@@ -254,6 +280,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Cervezas',
+    grupo: 'bar',
     descripcion: 'Botella michelada ₡200 · Vaso michelado ₡300.',
     platos: [
       ['Cerveza nacional', 1700],
@@ -271,6 +298,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Cervezas importadas',
+    grupo: 'bar',
     platos: [
       ['Stella Artois', 2300],
       ['Carlsberg', 2200],
@@ -297,6 +325,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Whisky',
+    grupo: 'bar',
     platos: [
       ["Buchanan's 12", 2900],
       ["Buchanan's 12 lleno", 4400],
@@ -339,6 +368,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Ron',
+    grupo: 'bar',
     platos: [
       ['Bacardi oscuro', 1900],
       ['Bacardi claro', 1900],
@@ -367,6 +397,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Vodka',
+    grupo: 'bar',
     platos: [
       ['Absolut', 2200],
       ['Absolut cuarta', 8000],
@@ -383,6 +414,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Tequila',
+    grupo: 'bar',
     platos: [
       ['José Cuervo reposado', 2000],
       ['José Cuervo Silver', 2000],
@@ -397,6 +429,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Ginebra',
+    grupo: 'bar',
     platos: [
       ['Beefeater', 2800],
       ['Bombay', 2800],
@@ -406,6 +439,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Shots',
+    grupo: 'bar',
     platos: [
       ['Chili-guaro (chayote, tamarindo o clásico)', 1200],
       ['Chili-guaro maracuyá', 1400],
@@ -421,6 +455,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Cremas y más',
+    grupo: 'bar',
     platos: [
       ['Aguardiente antioqueño', 2300, 'Rojo, azul, verde o amarillo'],
       ['Amaretto de la casa Mitjans', 1800],
@@ -454,6 +489,7 @@ export const MENU_INICIAL = [
   },
   {
     nombre: 'Cócteles',
+    grupo: 'bar',
     platos: [
       ['Cantarito', 3900],
       ['Brandy Alexander', 3600],
@@ -486,3 +522,9 @@ export const MENU_INICIAL = [
     ],
   },
 ]
+
+// Sección de una categoría: usa su campo "grupo"; si no lo tiene, la deduce por nombre.
+const GRUPO_POR_NOMBRE = Object.fromEntries(MENU_INICIAL.map((c) => [c.nombre.toLowerCase(), c.grupo]))
+export function grupoDe(cat) {
+  return cat.grupo || GRUPO_POR_NOMBRE[(cat.nombre || '').toLowerCase().trim()] || 'otros'
+}

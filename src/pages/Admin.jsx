@@ -5,7 +5,7 @@ import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc, writeBatch } fro
 import { auth, db, firebaseListo } from '../lib/firebase'
 import { useConfig, usarMenu, formatoPrecio } from '../lib/data'
 import CampoFoto from '../components/CampoFoto'
-import { MENU_INICIAL } from '../lib/menuInicial'
+import { GRUPOS, MENU_INICIAL, grupoDe } from '../lib/menuInicial'
 import EditorEspecialidad from './admin/EditorEspecialidad'
 import EditorEventos from './admin/EditorEventos'
 import EditorModulos from './admin/EditorModulos'
@@ -56,6 +56,7 @@ function Login() {
 function EditorMenu() {
   const { categorias, items } = usarMenu()
   const [nuevaCat, setNuevaCat] = useState('')
+  const [nuevoGrupo, setNuevoGrupo] = useState('fuerte')
   const [editando, setEditando] = useState(null) // plato (con id o sin id) en edición
   const [msg, setMsg] = useState('')
 
@@ -70,7 +71,7 @@ function EditorMenu() {
       const ops = []
       MENU_INICIAL.forEach((c, i) => {
         const cRef = doc(collection(db, 'menuCategorias'))
-        ops.push([cRef, { nombre: c.nombre, descripcion: c.descripcion || '', orden: i }])
+        ops.push([cRef, { nombre: c.nombre, descripcion: c.descripcion || '', grupo: c.grupo, orden: i }])
         c.platos.forEach(([nombre, precio, descripcion], j) => {
           ops.push([
             doc(collection(db, 'menuItems')),
@@ -92,7 +93,7 @@ function EditorMenu() {
   async function agregarCategoria(e) {
     e.preventDefault()
     if (!nuevaCat.trim()) return
-    await addDoc(collection(db, 'menuCategorias'), { nombre: nuevaCat.trim(), orden: categorias.length })
+    await addDoc(collection(db, 'menuCategorias'), { nombre: nuevaCat.trim(), grupo: nuevoGrupo, orden: categorias.length })
     setNuevaCat('')
   }
   async function borrarCategoria(c) {
@@ -133,6 +134,11 @@ function EditorMenu() {
     <div className="space-y-8">
       <form onSubmit={agregarCategoria} className="flex gap-2">
         <input className="campo" placeholder="Nueva categoría (ej. Cortes, Mariscos, Bebidas)" value={nuevaCat} onChange={(e) => setNuevaCat(e.target.value)} />
+        <select className="campo w-auto" aria-label="Sección del menú" value={nuevoGrupo} onChange={(e) => setNuevoGrupo(e.target.value)}>
+          {GRUPOS.map((g) => (
+            <option key={g.id} value={g.id}>{g.nombre}</option>
+          ))}
+        </select>
         <button className="boton whitespace-nowrap">Agregar</button>
       </form>
       {msg && <p className="text-sm" role="status">{msg}</p>}
@@ -155,7 +161,18 @@ function EditorMenu() {
           <section key={c.id} className="rounded-2xl bg-white p-4 shadow-sm">
             <div className="flex items-center justify-between gap-3">
               <h3 className="text-xl font-bold">{c.nombre}</h3>
-              <div className="flex gap-3 text-sm">
+              <div className="flex items-center gap-3 text-sm">
+                <select
+                  className="rounded border border-brasa/25 bg-white px-2 py-1"
+                  aria-label={`Sección de ${c.nombre}`}
+                  value={grupoDe(c)}
+                  onChange={(e) => updateDoc(doc(db, 'menuCategorias', c.id), { grupo: e.target.value })}
+                >
+                  {GRUPOS.map((g) => (
+                    <option key={g.id} value={g.id}>{g.nombre}</option>
+                  ))}
+                  {grupoDe(c) === 'otros' && <option value="otros">Otros</option>}
+                </select>
                 <button className="underline" onClick={() => setEditando({ categoriaId: c.id, nombre: '', descripcion: '', precio: '', foto: '', disponible: true })}>
                   + Plato
                 </button>
