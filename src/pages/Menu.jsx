@@ -1,4 +1,5 @@
 import { INFO } from '../lib/info'
+import { NOTA_EMPAQUE } from '../lib/menuInicial'
 import { formatoPrecio, useConfig, usarMenu } from '../lib/data'
 import Especialidad from '../components/Especialidad'
 
@@ -76,6 +77,8 @@ export default function Menu() {
           </ul>
         </section>
       ))}
+
+      {grupos.length > 0 && <p className="mt-12 text-center text-sm text-brasa/70">{NOTA_EMPAQUE}</p>}
     </div>
   )
 }

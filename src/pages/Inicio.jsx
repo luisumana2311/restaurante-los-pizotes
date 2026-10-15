@@ -16,7 +16,7 @@ export default function Inicio() {
       <section
         className="relative bg-brasa text-hueso"
         style={{
-          backgroundImage: `linear-gradient(rgba(27,22,19,.65), rgba(27,22,19,.78)), url(${config.heroFoto || '/fotos/portada.webp'})`,
+          backgroundImage: `linear-gradient(rgba(56,25,20,.65), rgba(56,25,20,.78)), url(${config.heroFoto || '/fotos/portada.webp'})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}

@@ -18,7 +18,7 @@
 
 @layer components {
   .boton {
-    @apply inline-flex items-center justify-center rounded-full bg-naranja px-6 py-3 font-semibold text-white transition hover:bg-naranja-oscuro focus:outline-none focus-visible:ring-2 focus-visible:ring-naranja focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center rounded-full bg-naranja-oscuro px-6 py-3 font-semibold text-white transition hover:bg-brasa focus:outline-none focus-visible:ring-2 focus-visible:ring-naranja focus-visible:ring-offset-2;
   }
   .boton-claro {
     @apply inline-flex items-center justify-center rounded-full border border-brasa/30 px-6 py-3 font-semibold transition hover:bg-brasa hover:text-hueso;

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
-import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc, writeBatch } from 'firebase/firestore'
 import { auth, db, firebaseListo } from '../lib/firebase'
 import { useConfig, usarMenu, formatoPrecio } from '../lib/data'
 import CampoFoto from '../components/CampoFoto'
+import { MENU_INICIAL } from '../lib/menuInicial'
 import EditorEspecialidad from './admin/EditorEspecialidad'
 import EditorEventos from './admin/EditorEventos'
 import EditorModulos from './admin/EditorModulos'
@@ -58,6 +59,36 @@ function EditorMenu() {
   const [editando, setEditando] = useState(null) // plato (con id o sin id) en edición
   const [msg, setMsg] = useState('')
 
+  const totalInicial = MENU_INICIAL.reduce((n, c) => n + c.platos.length, 0)
+
+  // Carga el menú del PDF 2025-2026 (solo si todavía no hay categorías, para no duplicar).
+  async function cargarMenuInicial() {
+    if (categorias.length > 0) return
+    if (!window.confirm(`Se van a cargar ${MENU_INICIAL.length} categorías y ${totalInicial} platos del menú 2025-2026. ¿Continuar?`)) return
+    setMsg('Cargando menú…')
+    try {
+      const ops = []
+      MENU_INICIAL.forEach((c, i) => {
+        const cRef = doc(collection(db, 'menuCategorias'))
+        ops.push([cRef, { nombre: c.nombre, descripcion: c.descripcion || '', orden: i }])
+        c.platos.forEach(([nombre, precio, descripcion], j) => {
+          ops.push([
+            doc(collection(db, 'menuItems')),
+            { categoriaId: cRef.id, nombre, descripcion: descripcion || '', precio, foto: '', disponible: true, orden: j },
+          ])
+        })
+      })
+      for (let k = 0; k < ops.length; k += 400) {
+        const lote = writeBatch(db)
+        ops.slice(k, k + 400).forEach(([ref, datos]) => lote.set(ref, datos))
+        await lote.commit()
+      }
+      setMsg('Menú cargado. Ya podés editar precios, ocultar platos o agregar fotos.')
+    } catch {
+      setMsg('No se pudo cargar el menú. Revisá que hayas iniciado sesión con la cuenta autorizada y que las reglas estén publicadas.')
+    }
+  }
+
   async function agregarCategoria(e) {
     e.preventDefault()
     if (!nuevaCat.trim()) return
@@ -106,7 +137,17 @@ function EditorMenu() {
       </form>
       {msg && <p className="text-sm" role="status">{msg}</p>}
 
-      {categorias.length === 0 && <p>Todavía no hay categorías. Creá la primera arriba.</p>}
+      {categorias.length === 0 && (
+        <div className="rounded-2xl bg-crema p-5">
+          <p className="font-semibold">Todavía no hay categorías.</p>
+          <p className="mt-1 text-sm">
+            Podés crear la primera arriba, o cargar de una vez el menú impreso 2025-2026 ({MENU_INICIAL.length} categorías, {totalInicial} platos).
+          </p>
+          <button type="button" className="boton mt-3" onClick={cargarMenuInicial}>
+            Cargar menú inicial
+          </button>
+        </div>
+      )}
 
       {categorias.map((c) => {
         const platos = items.filter((i) => i.categoriaId === c.id).sort((a, b) => (a.orden ?? 0) - (b.orden ?? 0))
