@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom'
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { addDoc, collection, deleteDoc, doc, setDoc, updateDoc, writeBatch } from 'firebase/firestore'
 import { auth, db, firebaseListo } from '../lib/firebase'
-import { useConfig, usarMenu, formatoPrecio } from '../lib/data'
+import { useConfig, usarMenu, formatoPrecio, useColeccion } from '../lib/data'
 import CampoFoto from '../components/CampoFoto'
+import { horarioDe } from '../lib/info'
 import { GRUPOS, MENU_INICIAL, grupoDe } from '../lib/menuInicial'
 import EditorEspecialidad from './admin/EditorEspecialidad'
 import EditorEventos from './admin/EditorEventos'
 import EditorModulos from './admin/EditorModulos'
+import EditorOpiniones from './admin/EditorOpiniones'
 
 /* ---------- Login ---------- */
 function Login() {
@@ -71,7 +73,7 @@ function EditorMenu() {
       const ops = []
       MENU_INICIAL.forEach((c, i) => {
         const cRef = doc(collection(db, 'menuCategorias'))
-        ops.push([cRef, { nombre: c.nombre, descripcion: c.descripcion || '', grupo: c.grupo, orden: i }])
+        ops.push([cRef, { nombre: c.nombre, descripcion: c.descripcion || '', grupo: c.grupo, insignia: c.insignia || '', orden: i }])
         c.platos.forEach(([nombre, precio, descripcion], j) => {
           ops.push([
             doc(collection(db, 'menuItems')),
@@ -238,7 +240,7 @@ function EditorSitio({ config }) {
   const [msg, setMsg] = useState('')
 
   useEffect(() => {
-    setHorario(Array.isArray(config.horario) ? config.horario : [])
+    setHorario(horarioDe(config))
     setWhatsapp(config.whatsapp || '')
     setHeroFoto(config.heroFoto || '')
   }, [config])
@@ -296,6 +298,7 @@ function EditorSitio({ config }) {
 export default function Admin() {
   const [usuario, setUsuario] = useState(undefined)
   const [tab, setTab] = useState('menu')
+  const nuevasOp = useColeccion('opiniones', Boolean(usuario)).items.filter((o) => !o.leida).length
   const { config } = useConfig()
 
   useEffect(() => {
@@ -318,6 +321,7 @@ export default function Admin() {
     ['menu', 'Menú'],
     ['especialidad', 'Especialidad del día'],
     ['eventos', 'Eventos'],
+    ['opiniones', nuevasOp > 0 ? `Opiniones (${nuevasOp})` : 'Opiniones'],
     ['sitio', 'Horario y contacto'],
     ['modulos', 'Módulos'],
   ]
@@ -347,6 +351,7 @@ export default function Admin() {
         {tab === 'sitio' && <EditorSitio config={config} />}
         {tab === 'especialidad' && <EditorEspecialidad />}
         {tab === 'eventos' && <EditorEventos />}
+        {tab === 'opiniones' && <EditorOpiniones />}
         {tab === 'modulos' && <EditorModulos />}
       </div>
     </div>

@@ -7,6 +7,7 @@ export const MODULOS = [
   { clave: 'menu', nombre: 'Menú', descripcion: 'Página del menú, su enlace en la barra de navegación y los botones «Ver el menú».' },
   { clave: 'especialidad', nombre: 'Especialidad del día', descripcion: 'Tarjeta de la especialidad en el inicio y arriba del menú. Lo que ya escribiste se conserva.' },
   { clave: 'eventos', nombre: 'Eventos', descripcion: 'Página de eventos, su enlace y los próximos eventos en el inicio. Los eventos se conservan.' },
+  { clave: 'opiniones', nombre: 'Opiniones (formulario privado)', descripcion: 'Botón «Contanos tu opinión» en el inicio y su formulario. Las opiniones recibidas se conservan.' },
   { clave: 'galeria', nombre: 'Galería de fotos', descripcion: 'Página de galería, su enlace y el carrusel de fotos del inicio.' },
 ]
 

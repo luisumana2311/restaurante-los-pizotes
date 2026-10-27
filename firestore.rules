@@ -3,10 +3,10 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     // Solo la(s) cuenta(s) del dueño pueden escribir.
-    // REEMPLAZAR por el correo real con el que el dueño cree su cuenta en Firebase Auth.
+    // Para agregar otro administrador (por ejemplo el dueño), añadir su correo a la lista.
     function esAdmin() {
       return request.auth != null
-        && request.auth.token.email in ['REEMPLAZAR_CORREO_DEL_DUENO@ejemplo.com'];
+        && request.auth.token.email in ['marianoumana@gmail.com'];
     }
 
     // Lectura pública: el sitio muestra menú, horario y plato del día.
@@ -25,6 +25,23 @@ service cloud.firestore {
     match /eventos/{id} {
       allow read: if true;
       allow write: if esAdmin();
+    }
+
+    // Opiniones privadas: cualquiera puede ENVIAR una (con campos y tamaños válidos),
+    // pero solo el administrador puede leerlas, marcarlas o borrarlas.
+    match /opiniones/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['tipo', 'mensaje', 'nombre', 'contacto', 'leida', 'fecha'])
+        && request.resource.data.tipo in ['sugerencia', 'queja', 'felicitacion']
+        && request.resource.data.mensaje is string
+        && request.resource.data.mensaje.size() >= 5
+        && request.resource.data.mensaje.size() <= 1500
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() <= 80
+        && request.resource.data.contacto is string
+        && request.resource.data.contacto.size() <= 120
+        && request.resource.data.leida == false
+        && request.resource.data.fecha == request.time;
+      allow read, update, delete: if esAdmin();
     }
   }
 }

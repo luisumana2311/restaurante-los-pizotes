@@ -1,10 +1,10 @@
-import { INFO, linkWhatsApp } from '../lib/info'
+import { INFO, horarioDe, linkWhatsApp } from '../lib/info'
 import { useConfig } from '../lib/data'
 
 export default function Contacto() {
   const { config } = useConfig()
   const wa = linkWhatsApp(config.whatsapp)
-  const horario = Array.isArray(config.horario) ? config.horario.filter((h) => h.dias && h.horas) : []
+  const horario = horarioDe(config)
   const mapaEmbed = `https://www.google.com/maps?q=${encodeURIComponent('Restaurante Los Pizotes, ' + INFO.direccion)}&output=embed`
 
   return (

@@ -103,6 +103,11 @@ export default function Layout() {
           </div>
           <div className="md:text-right">
             <p className="flex gap-4 md:justify-end">
+              {activo('opiniones') && (
+                <Link className="underline" to="/opinion">
+                  Tu opinión
+                </Link>
+              )}
               <Link className="underline" to="/privacidad">
                 Privacidad
               </Link>

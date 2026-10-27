@@ -28,11 +28,11 @@ export function esVigente(esp) {
 
 export { useConfig } from './config.jsx'
 
-export function useColeccion(nombre) {
+export function useColeccion(nombre, habilitado = true) {
   const [items, setItems] = useState([])
   const [cargando, setCargando] = useState(Boolean(db))
   useEffect(() => {
-    if (!db) return
+    if (!db || !habilitado) return
     return onSnapshot(
       collection(db, nombre),
       (snap) => {
@@ -41,7 +41,7 @@ export function useColeccion(nombre) {
       },
       () => setCargando(false),
     )
-  }, [nombre])
+  }, [nombre, habilitado])
   return { items, cargando }
 }
 

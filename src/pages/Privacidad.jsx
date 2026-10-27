@@ -10,7 +10,7 @@ export default function Privacidad() {
       </p>
       <h2 className="pt-2 text-2xl font-bold">Qué datos recopilamos</h2>
       <p>
-        Este sitio no te pide registrarte ni tiene formularios para el público. Solo recibimos los
+        Este sitio no te pide registrarte. Si usás el formulario privado de opiniones, guardamos lo que escribas (y, solo si querés, tu nombre y un medio de contacto); lo lee únicamente la administración del restaurante y no se publica. Además, recibimos los
         datos que vos nos envíes voluntariamente por teléfono, correo, WhatsApp o redes sociales
         cuando nos contactás.
       </p>

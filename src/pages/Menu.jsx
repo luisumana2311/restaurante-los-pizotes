@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { INFO } from '../lib/info'
-import { GRUPOS, NOTA_EMPAQUE, grupoDe } from '../lib/menuInicial'
+import { GRUPOS, NOTA_EMPAQUE, esAngus, grupoDe } from '../lib/menuInicial'
 import { formatoPrecio, useConfig, usarMenu } from '../lib/data'
 import Especialidad from '../components/Especialidad'
 
@@ -46,6 +46,16 @@ function Tarjeta({ g, abierta, alternar }) {
               {desde ? ` · desde ${formatoPrecio(desde)}` : ''}
             </span>
           </span>
+          {esAngus(g) && (
+            <span className="flex flex-none items-center gap-2">
+              <span className="hidden text-right text-xs font-semibold uppercase leading-tight tracking-wide text-naranja-oscuro sm:block">
+                Certified
+                <br />
+                Angus Beef®
+              </span>
+              <img src="/angus.webp" alt="Certified Angus Beef" width="40" height="41" className="h-11 w-auto" />
+            </span>
+          )}
           <span
             aria-hidden="true"
             className={`flex h-8 w-8 items-center justify-center rounded-full bg-brasa text-hueso transition-transform ${abierta ? 'rotate-45' : ''}`}

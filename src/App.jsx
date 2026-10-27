@@ -6,6 +6,7 @@ import Menu from './pages/Menu'
 import Contacto from './pages/Contacto'
 import Galeria from './pages/Galeria'
 import Eventos from './pages/Eventos'
+import Opinion from './pages/Opinion'
 import Modulo from './components/Modulo'
 import Privacidad from './pages/Privacidad'
 import Cookies from './pages/Cookies'
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/menu" element={<Modulo clave="menu"><Menu /></Modulo>} />
           <Route path="/eventos" element={<Modulo clave="eventos"><Eventos /></Modulo>} />
           <Route path="/galeria" element={<Modulo clave="galeria"><Galeria /></Modulo>} />
+          <Route path="/opinion" element={<Modulo clave="opiniones"><Opinion /></Modulo>} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/privacidad" element={<Privacidad />} />
           <Route path="/cookies" element={<Cookies />} />

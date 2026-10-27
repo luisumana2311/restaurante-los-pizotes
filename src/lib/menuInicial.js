@@ -17,7 +17,8 @@ export const MENU_INICIAL = [
   {
     nombre: 'Cortes',
     grupo: 'fuerte',
-    descripcion: 'Todos los cortes incluyen un acompañamiento. Certified Angus Beef®.',
+    insignia: 'angus',
+    descripcion: 'Todos los cortes incluyen un acompañamiento.',
     platos: [
       ['Ribeye 300gr', 19600],
       ['New York 300gr', 19000],
@@ -528,3 +529,6 @@ const GRUPO_POR_NOMBRE = Object.fromEntries(MENU_INICIAL.map((c) => [c.nombre.to
 export function grupoDe(cat) {
   return cat.grupo || GRUPO_POR_NOMBRE[(cat.nombre || '').toLowerCase().trim()] || 'otros'
 }
+
+// Los cortes llevan la insignia de Certified Angus Beef® (campo "insignia" o, si falta, el nombre «Cortes»).
+export const esAngus = (cat) => cat.insignia === 'angus' || (cat.nombre || '').toLowerCase().trim() === 'cortes'
