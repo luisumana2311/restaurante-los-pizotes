@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import Carrusel from '../components/Carrusel'
 import Especialidad from '../components/Especialidad'
 import EventoCard from '../components/EventoCard'
-import { INFO, horarioDe, linkWhatsApp } from '../lib/info'
+import { INFO, estadoAhora, horarioDe, linkWhatsApp } from '../lib/info'
 import { useConfig, useEventosProximos } from '../lib/data'
 import { destacadas } from '../lib/grupos'
 
@@ -10,12 +10,13 @@ export default function Inicio() {
   const { config, activo } = useConfig()
   const { eventos } = useEventosProximos()
   const wa = linkWhatsApp(config.whatsapp)
+  const estado = estadoAhora(horarioDe(config))
 
   return (
     <>
-      <section className="relative isolate flex flex-col overflow-hidden bg-brasa text-hueso lg:block">
+      <section className="relative isolate flex flex-col overflow-hidden rounded-b-[2rem] bg-brasa text-hueso lg:block lg:rounded-none">
         {/* Foto de la fachada. En celular va debajo del texto, entera; en pantalla grande va de fondo. */}
-        <div className="relative h-72 lg:absolute lg:inset-0 lg:-z-20 lg:h-auto">
+        <div className="relative h-80 lg:absolute lg:inset-0 lg:-z-20 lg:h-auto">
           <img
             src={config.heroFoto || '/fotos/fachada-volcan.webp'}
             alt="Fachada del Restaurante Los Pizotes con el volcán Turrialba al fondo"
@@ -24,13 +25,25 @@ export default function Inicio() {
             style={{ filter: 'saturate(1.05) contrast(1.03)' }}
           />
           <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-brasa via-brasa/70 to-transparent lg:hidden" aria-hidden="true" />
+          {estado && (
+            <p className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-brasa/80 px-3 py-1.5 text-xs font-semibold text-hueso backdrop-blur lg:hidden">
+              <span className={`h-2 w-2 rounded-full ${estado.abierto ? 'bg-green-400' : 'bg-red-400'}`} aria-hidden="true" />
+              {estado.texto}
+            </p>
+          )}
         </div>
         {/* Sombra suave solo a la izquierda, donde va el texto */}
         <div className="absolute inset-0 -z-10 hidden bg-gradient-to-r from-brasa/65 via-brasa/20 to-transparent lg:block" aria-hidden="true" />
         <div className="relative -mt-16 w-full px-4 pb-10 pt-0 [text-shadow:0_2px_14px_rgba(40,18,12,.65)] md:px-10 lg:mt-0 lg:px-16 lg:pb-52 lg:pt-20">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-hueso">Cervantes de Cartago</p>
-          <h1 className="max-w-md text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-6xl">Restaurante Los Pizotes</h1>
-          <p className="mt-4 max-w-sm text-base text-hueso/90 sm:mt-5 sm:text-lg">
+          <p className="mb-2 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.25em] text-naranja sm:text-sm">
+            <span className="h-px w-8 bg-naranja" aria-hidden="true" />
+            Cervantes de Cartago
+          </p>
+          <h1 className="max-w-md font-bold leading-[1.05] text-4xl sm:text-5xl lg:text-6xl">
+            <span className="block text-xl font-semibold text-hueso/90 sm:text-2xl lg:text-3xl">Restaurante</span>
+            Los Pizotes
+          </h1>
+          <p className="mt-3 max-w-xs text-[15px] leading-relaxed text-hueso/85 sm:mt-5 sm:max-w-sm sm:text-lg">
             Platos típicos, cortes de pollo, res y cerdo, mariscos, café y cócteles en San Isidro de Cervantes.
           </p>
           <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:flex sm:flex-wrap">
