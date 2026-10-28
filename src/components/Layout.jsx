@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { INFO } from '../lib/info'
 import { useConfig } from '../lib/config'
+import CookieBanner from './CookieBanner'
 
 const enlaces = [
   { a: '/', t: 'Inicio' },
@@ -114,11 +115,15 @@ export default function Layout() {
               <Link className="underline" to="/cookies">
                 Cookies
               </Link>
+              <button type="button" className="underline" onClick={() => window.dispatchEvent(new Event('abrir-cookies'))}>
+                Preferencias
+              </button>
             </p>
             <p className="mt-2">© {new Date().getFullYear()} {INFO.nombre}</p>
           </div>
         </div>
       </footer>
+      <CookieBanner />
     </div>
   )
 }

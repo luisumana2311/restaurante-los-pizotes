@@ -18,7 +18,7 @@ export default function Privacidad() {
       <p>Únicamente para responder tus consultas. No vendemos ni compartimos tus datos con terceros.</p>
       <h2 className="pt-2 text-2xl font-bold">Servicios de terceros</h2>
       <p>
-        El sitio usa Google Maps para mostrar la ubicación y Google Fonts para las tipografías, y
+        El sitio usa Google Maps para mostrar la ubicación, Google Analytics (solo si aceptás las cookies) para estadísticas anónimas de visitas y Google Fonts para las tipografías, y
         los datos del sitio se guardan en Google Firebase. Estos servicios tienen sus propias
         políticas de privacidad.
       </p>

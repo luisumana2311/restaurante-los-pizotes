@@ -8,6 +8,13 @@ export default function Cookies() {
         Las cookies son pequeños archivos que un sitio guarda en tu navegador. Este sitio no usa
         cookies de publicidad ni de seguimiento propias.
       </p>
+      <h2 className="pt-2 text-2xl font-bold">Cookies de análisis (opcionales)</h2>
+      <p>
+        Si pulsás «Aceptar» en el aviso de cookies, usamos Google Analytics para medir cuántas personas visitan el sitio y
+        qué páginas consultan, con la dirección IP anonimizada. Si elegís «Solo necesarias», no se activa. Podés cambiar
+        tu decisión cuando quieras desde «Preferencias» en el pie de página.
+      </p>
+      <h2 className="pt-2 text-2xl font-bold">Cookies técnicas</h2>
       <p>
         Los servicios incrustados (por ejemplo el mapa de Google Maps) y Firebase pueden usar
         almacenamiento técnico en tu navegador para funcionar. Podés borrarlo o bloquearlo desde la
