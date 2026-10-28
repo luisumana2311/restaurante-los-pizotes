@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /panel-admin
+
+Sitemap: https://restaurantelospizotes.com/sitemap.xml

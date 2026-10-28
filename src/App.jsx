@@ -10,6 +10,7 @@ import Opinion from './pages/Opinion'
 import Modulo from './components/Modulo'
 import Privacidad from './pages/Privacidad'
 import Cookies from './pages/Cookies'
+import Seo from './components/Seo'
 import Admin from './pages/Admin'
 
 function ScrollArriba() {
@@ -25,6 +26,7 @@ export default function App() {
   return (
     <>
       <ScrollArriba />
+      <Seo />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Inicio />} />
