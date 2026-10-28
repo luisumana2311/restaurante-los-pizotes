@@ -43,9 +43,13 @@ function Tarjeta({ g, abierta, alternar }) {
             <span className="block font-titulo text-xl font-bold">
               {g.nombre}
               {esAngus(g) && (
-                <span className="ml-2 inline-block rounded-full bg-naranja-oscuro/10 px-2.5 py-0.5 align-middle font-texto text-xs font-semibold uppercase tracking-wide text-naranja-oscuro">
-                  Certified Angus Beef®
-                </span>
+                <img
+                  src="/angus.webp"
+                  alt="Certified Angus Beef"
+                  width="200"
+                  height="205"
+                  className="ml-3 inline-block h-12 w-auto align-middle"
+                />
               )}
             </span>
             <span className="block text-sm text-brasa/60">
