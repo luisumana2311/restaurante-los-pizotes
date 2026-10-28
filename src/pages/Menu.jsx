@@ -40,22 +40,19 @@ function Tarjeta({ g, abierta, alternar }) {
           onClick={alternar}
         >
           <span className="flex-1">
-            <span className="block font-titulo text-xl font-bold">{g.nombre}</span>
+            <span className="block font-titulo text-xl font-bold">
+              {g.nombre}
+              {esAngus(g) && (
+                <span className="ml-2 inline-block rounded-full bg-naranja-oscuro/10 px-2.5 py-0.5 align-middle font-texto text-xs font-semibold uppercase tracking-wide text-naranja-oscuro">
+                  Certified Angus Beef®
+                </span>
+              )}
+            </span>
             <span className="block text-sm text-brasa/60">
               {g.platos.length} {g.platos.length === 1 ? 'opción' : 'opciones'}
               {desde ? ` · desde ${formatoPrecio(desde)}` : ''}
             </span>
           </span>
-          {esAngus(g) && (
-            <span className="flex flex-none items-center gap-2">
-              <span className="hidden text-right text-xs font-semibold uppercase leading-tight tracking-wide text-naranja-oscuro sm:block">
-                Certified
-                <br />
-                Angus Beef®
-              </span>
-              <img src="/angus.webp" alt="Certified Angus Beef" width="40" height="41" className="h-11 w-auto" />
-            </span>
-          )}
           <span
             aria-hidden="true"
             className={`flex h-8 w-8 items-center justify-center rounded-full bg-brasa text-hueso transition-transform ${abierta ? 'rotate-45' : ''}`}
